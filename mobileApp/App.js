@@ -1,20 +1,32 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import * as React from 'react';
+import { View, Text } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Train from './src/views/Train';
+import Home from './src/views/Home';
+import { useFonts } from "expo-font";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+const Stack = createNativeStackNavigator();
+
+function App() {
+
+  const [fontsLoaded] = useFonts({
+    'Circular Std': require('./assets/fonts/circular-std.ttf'),
+  });
+
+  return fontsLoaded ? (
+    <NavigationContainer>
+      <Stack.Navigator 
+        initialRouteName="Train"
+        screenOptions={{
+          headerShown: false
+        }}
+        >
+        <Stack.Screen name="Train" component={Train} />
+        <Stack.Screen name="Home" component={Home} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  ) : (<Text>Loading...</Text>);
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;

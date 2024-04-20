@@ -6,5 +6,5 @@ export const COLORS = {
 export const FONT = {
     FAMILY: 'Circular Std',
     MEDIUM_SIZE: '1.25rem',
-    MEDIUM_WEIGHT: '700'
+    MEDIUM_WEIGHT: "700"
 }

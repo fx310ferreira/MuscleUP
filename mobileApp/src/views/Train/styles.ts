@@ -11,7 +11,7 @@ export const styles = StyleSheet.create(
         header: {
             position: 'absolute',
             top: 64,
-            zIndex: 1,
+            zIndex: 100,
             display: 'flex',
             width: '100%',
             padding: 12,
@@ -20,7 +20,8 @@ export const styles = StyleSheet.create(
             alignItems: 'center',
         },
         camera: {
-            flex: 1
+            flex: 1,
+            zIndex: 0,
         },
             text: {
                 fontSize: 12,

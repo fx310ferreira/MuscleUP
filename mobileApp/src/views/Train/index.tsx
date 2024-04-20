@@ -40,9 +40,10 @@ export default function Train({ navigation }: { navigation: any }) {
 
         // ctx.drawImage(nextImageTensor, 0, 0, 152, 200);
         // remove this await
-
+        
         const pose = await ((await detector).estimatePoses(nextImageTensor));
-        // console.log(nextImageTensor);
+        console.log(pose);
+        
         updatePreview();
         gl.endFrameEXP();
       }

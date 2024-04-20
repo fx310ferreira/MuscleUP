@@ -1,0 +1,30 @@
+version: "3.9"
+services:
+  database:
+    image: postgres:14
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: password
+
+  backend:
+    build:
+      context: backend/.
+      dockerfile: Dockerfile
+      target: development
+    stdin_open: true
+    env_file:
+      - backend/.env
+    tty: true
+    command: sh -c "(bundle check || bundle) && rm -f /tmp/server.pid && bundle exec rails s --pid /tmp/server.pid -b 0.0.0.0 -p 8080"
+    volumes:
+      - ./backend:/app
+      - gems:/bundle
+    ports:
+      - 8080:8080
+    depends_on:
+      - database
+
+volumes:
+  postgres:
+  gems:

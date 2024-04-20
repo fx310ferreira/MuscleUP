@@ -5,11 +5,12 @@ export const styles = StyleSheet.create(
     {
         container: {
             display:"flex",
+            height: '100%',
             flex: 1
         },
         header: {
             position: 'absolute',
-            top: '4rem',
+            top: '64',
             zIndex: 1,
             display: 'flex',
             width: '100%',
@@ -18,7 +19,7 @@ export const styles = StyleSheet.create(
             justifyContent: 'space-between',
             alignItems: 'center',
             text: {
-                fontSize: FONT.MEDIUM_SIZE,
+                fontSize: 12,
                 fontFamily: FONT.FAMILY,
                 fontWeight: FONT.MEDIUM_WEIGHT,
                 color: COLORS.PRIMARY
@@ -27,5 +28,11 @@ export const styles = StyleSheet.create(
         camera: {
             flex: 1
         },
+            text: {
+                fontSize: 12,
+                fontFamily: FONT.FAMILY,
+                fontWeight: FONT.MEDIUM_WEIGHT,
+                color: COLORS.PRIMARY
+            }
     }
 );

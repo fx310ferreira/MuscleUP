@@ -1,29 +1,31 @@
-import { Camera } from 'expo-camera';
+import { Camera, CameraType } from 'expo-camera';
 import { cameraWithTensors } from '@tensorflow/tfjs-react-native';
 import { useEffect, useRef, useState } from "react";
 import RoundButton from '../../components/RoundButton';
-import { Text, View } from 'react-native';
+import { Alert, Text, View } from 'react-native';
 import FilterIcon from '../../components/icons/FilterIcon';
 import ChevronIcon from '../../components/icons/ChevronIcon';
 import { styles } from './styles';
 import * as poseDetection from '@tensorflow-models/pose-detection';
 import * as tf from '@tensorflow/tfjs-core';
 import '@tensorflow/tfjs-backend-webgl';
+import poseProcessor from '../../components/utils/posePrecessor';
 
 
 const TensorCamera = cameraWithTensors(Camera);
 
 export default function Train({ navigation }: { navigation: any }) {
   const [ready, setReady] = useState(false);
+  const [errors, setErrors] = useState("");
+  const [cameraType, setCameraType] = useState(CameraType.front);
 
   const model = poseDetection.SupportedModels.BlazePose;
   const detectorConfig = {
     runtime: 'tfjs',
     enableSmoothing: true,
-    modelType: 'full'
+    modelType: 'lite'
   };
   // make this be loaded async
-  let detector = poseDetection.createDetector(model, detectorConfig);
 
   useEffect(() => {
     tf.ready();
@@ -32,20 +34,16 @@ export default function Train({ navigation }: { navigation: any }) {
   }, []);
 
 
-  const handleCameraStream = ( images, updatePreview, gl) => {
-    let i = 1;
+  const handleCameraStream = async ( images, updatePreview, gl) => {
+    let detector = await poseDetection.createDetector(model, detectorConfig);
     const loop = async () => {
       if (detector) {
         const nextImageTensor = images.next().value;
-
-        // ctx.drawImage(nextImageTensor, 0, 0, 152, 200);
-        // remove this await
-        
-        const pose = await ((await detector).estimatePoses(nextImageTensor));
-        console.log(pose);
-        
-        updatePreview();
-        gl.endFrameEXP();
+        const pose = await detector.estimatePoses(nextImageTensor);
+        const err = poseProcessor(pose, "pushUp")?.error;
+        if (errors !== err) {
+          setErrors(err ?? "");
+        }
       }
       requestAnimationFrame(loop);
     };
@@ -61,15 +59,15 @@ export default function Train({ navigation }: { navigation: any }) {
             <RoundButton onPress={() => { navigation.navigate('Home') }} >
               <ChevronIcon />
             </RoundButton>
-            <Text style={styles.text}>Workouts</Text>
-            <RoundButton onPress={() => {}}>
+            <Text style={styles.text}>{errors}</Text>
+            <RoundButton onPress={() => {setCameraType(CameraType.front == cameraType ? CameraType.back : CameraType.front)}}>
               <FilterIcon />
             </RoundButton>
           </View>
           <TensorCamera
             // Standard Camera props
             style={styles.camera}
-            type={Camera.Constants.Type.front}
+            type={cameraType}
             // Tensor related props     cameraTextureHeight={textureDims.height}
             cameraTextureHeight={200}
             cameraTextureWidth={152}
@@ -77,7 +75,7 @@ export default function Train({ navigation }: { navigation: any }) {
             resizeWidth={152}
             resizeDepth={3}
             onReady={handleCameraStream}
-            autorender={false}
+            autorender={true}
           />
         </View>
       </>

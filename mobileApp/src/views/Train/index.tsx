@@ -14,6 +14,7 @@ import Button from '../../components/Button';
 import HeartIcon from '../../components/icons/HeartIcon';
 import FireIcon from '../../components/icons/FireIcon';
 import StarIcon from '../../components/icons/StarIcon';
+import pushUp from '../../assets/img.png';
 
 
 const TensorCamera = cameraWithTensors(Camera);
@@ -22,7 +23,6 @@ export default function Train({ navigation }: { navigation: any }) {
   const [ready, setReady] = useState(false);
   const [loading, setLoading] = useState(true);
   const [errors, setErrors] = useState("");
-  const [corrections, setCorrections] = useState("");
   const [cameraType, setCameraType] = useState(Camera.Constants.Type.front);
   const [hide, setHide] = useState(false);
 
@@ -33,13 +33,11 @@ export default function Train({ navigation }: { navigation: any }) {
     modelType: 'lite'
   };
 
-  let detector: poseDetection.PoseDetector | null = null;
   useEffect(() => {
     tf.ready().then(() => {
       setReady(true);
     });
   }, []);
-
 
   const handleCameraStream = async (images, updatePreview, gl) => {
     let detector = await poseDetection.createDetector(model, detectorConfig);
@@ -49,12 +47,7 @@ export default function Train({ navigation }: { navigation: any }) {
         const nextImageTensor = images.next().value;
         const pose = await detector.estimatePoses(nextImageTensor);
         const res = poseProcessor(pose, "pushUp");
-        if (errors !== res?.error) {
-          setErrors(res?.error ?? "");
-        }
-        if (corrections !== res?.corrections) {
-          setCorrections(res?.corrections ?? "");
-        }
+        setErrors(res?.error ?? "");
       }
       requestAnimationFrame(loop);
     };
@@ -109,9 +102,10 @@ export default function Train({ navigation }: { navigation: any }) {
             <View style={styles.loading}>
               <View style={styles.errorCard}>
                 <Text style={styles.errorCardTitle}>{errors}</Text>
+                <Image source={require('../../assets/img.png')} resizeMode="contain" style={{zIndex:101, position:'absolute', bottom:-170, width: '100%'}}/>
               </View>
             </View>
-          }
+          } 
           <TensorCamera
             style={styles.camera}
             type={cameraType}

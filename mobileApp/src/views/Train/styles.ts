@@ -77,16 +77,16 @@ export const styles = StyleSheet.create(
             width: "100%",
         },
         errorCard: {
+            position: 'relative',
             backgroundColor: COLORS.PRIMARY,
             width: "95%",
             height: "100%",
             borderTopLeftRadius: 20,
             borderTopRightRadius: 20,
             display: 'flex',
-            alignItems: 'flex-start',
-            justifyContent: 'center',
-            padding: 30,
-            gap: 20
+            alignItems: 'center',
+            justifyContent: 'flex-start',
+            paddingTop: 30,
         },
         errorCardTitle: {
             fontFamily: FONT.FAMILY,

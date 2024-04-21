@@ -34,9 +34,8 @@ function pushUpProcessor(rightShoulder: Keypoint, leftShoulder: Keypoint, rightH
     const mediumHip = mediumPos(rightHip, leftHip);
     const mediumKnee = mediumPos(rightKnee, leftKnee);
     const shoulderHipAngle = angle(mediumShoulder, mediumHip, mediumKnee);
-    if( shoulderHipAngle > 90){
+    if( shoulderHipAngle > 30 ){
         response.error = "WRONG POSTURE DETECTED";
     }
-    console.log(response);
     return response;
 }

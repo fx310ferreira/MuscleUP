@@ -17,7 +17,7 @@ function App() {
   return fontsLoaded ? (
     <NavigationContainer>
       <Stack.Navigator 
-        initialRouteName="Train"
+        initialRouteName="Home"
         screenOptions={{
           headerShown: false
         }}

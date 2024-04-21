@@ -1,9 +1,11 @@
 import { Text, Pressable, View } from "react-native";
 import { useEffect, useState } from "react";
 
-import { styles } from "./styles";
 import Button from "../Button";
 import TitleSub from "../TitleSub";
+import Graph from "../Graph";
+
+import { styles } from "./styles";
 
 export default function Statistics() {
   const today = useState(new Date());
@@ -35,7 +37,10 @@ export default function Statistics() {
               day.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })
             } onPress={() => {}}/>
             :
-            <Pressable key={`${day.getDate()}-${index}`} onPress={() => setSelectedDate(day)}>
+            <Pressable key={`${day.getDate()}-${index}`} onPress={() => {
+              if (day.getDate() > today[0].getDate()) return;
+              setSelectedDate(day)
+            }}>
               <Text style={styles.carousel__day}>
                 {day.getDate()}
               </Text>
@@ -53,6 +58,7 @@ export default function Statistics() {
           <TitleSub title='1248' subTitle='Points' />
         </View>
       </View>
+      <Graph vals={[55, 20, 80, 45, 75, 90, 50]} />
     </View>
   );
 }

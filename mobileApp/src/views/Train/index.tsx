@@ -92,7 +92,7 @@ export default function Train({ navigation }: { navigation: any }) {
                     <Text>Beginner</Text>
                   </View>
                 </View>
-                <Button loading={loading} onPress={() => { setHide(true) }}>
+                <Button loading={loading} onPress={() => { setHide(true) }} variant='tertiary'>
                   <Text style={styles.buttonContent}>Start</Text>
                 </Button>
               </View>

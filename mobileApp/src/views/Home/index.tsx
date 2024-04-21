@@ -51,12 +51,12 @@ export default function Home() {
         Track your activity
       </Button>
       <Statistics />
-      <RoundButton
+      <Button
         onPress={() => navigation.navigate('Train' as never)}
-        variant='secundary'
-      >
+        variant="tertiary"
+       >
         <Text style={styles.start}>START</Text>
-      </RoundButton>
+      </Button>
     </View>
   )
 };

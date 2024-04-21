@@ -7,6 +7,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
     height: '100%',
     padding: 30,
+    paddingTop: 80,
     gap: 8,
   },
   header: {

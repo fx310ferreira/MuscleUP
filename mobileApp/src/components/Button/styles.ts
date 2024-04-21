@@ -26,5 +26,11 @@ export const styles = StyleSheet.create({
   },
   secundayText: {
     color: COLORS.PRIMARY,
+  },
+  tertiary:{
+    alignSelf: 'center',
+    borderRadius: 12,
+    paddingVertical: 12,
+    paddingHorizontal: 46,
   }
 });

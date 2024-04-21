@@ -12,6 +12,7 @@ export const styles = StyleSheet.create({
     borderRadius: 32,
     paddingVertical: 8,
     paddingHorizontal: 8,
+    maxWidth: 148,
   },
   text: {
     fontFamily: FONT.FAMILY,

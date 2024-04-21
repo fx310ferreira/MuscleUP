@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { COLORS, FONT } from "../../styles/styleConsts";
+import { COLORS } from "../../styles/styleConsts";
 
 export const styles = StyleSheet.create({
   container: {
@@ -14,14 +14,13 @@ export const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     width: 16,
-    height: 100,
+    height: 125,
   },
   bar__empty: {
     backgroundColor: COLORS.PRIMARY_FADED,
     width: '100%',
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
-    // make it go inside
     position: 'absolute',
     top: 0,
   },

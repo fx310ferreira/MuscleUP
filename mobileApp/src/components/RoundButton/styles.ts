@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
     buttonBig: {
         backgroundColor: COLORS.WHITE,
         borderWidth: 1,
-        borderColor: COLORS.GREY,
+        borderColor: COLORS.LIGHTGREY,
         borderRadius: 100,
         width: 86,
         height: 86,
@@ -27,6 +27,10 @@ export const styles = StyleSheet.create({
         backgroundColor: COLORS.PRIMARY_FADED,
         borderWidth: 1,
         borderColor: COLORS.PRIMARY,
+    },
+    secundary: {
+        backgroundColor: COLORS.PRIMARY,
+        marginTop: 16,
+        alignSelf: 'center',
     }
-}
-);
+});

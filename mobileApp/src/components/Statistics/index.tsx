@@ -32,10 +32,12 @@ export default function Statistics() {
       <View style={styles.carousel}>
         {Object.values(days).map((day, index) => (<>{
           selectedDate.getDate() === day.getDate() ?
-            <Button key={`${day.getDate()}-${index}`} variant='secundary' width={112} text={
-              (selectedDate.getDate() === today[0].getDate() && index === 3 ? 'Today, ' : (day.toLocaleDateString('en-GB', { weekday: 'short' }) + ', ')) +
-              day.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })
-            } onPress={() => {}}/>
+            <Button key={`${day.getDate()}-${index}`} variant='secundary' onPress={() => {}}>
+              {
+                (selectedDate.getDate() === today[0].getDate() && index === 3 ? 'Today, ' : (day.toLocaleDateString('en-GB', { weekday: 'short' }) + ', ')) +
+                day.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })
+              }
+            </Button>
             :
             <Pressable key={`${day.getDate()}-${index}`} onPress={() => {
               if (day.getDate() > today[0].getDate()) return;

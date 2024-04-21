@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
   subTitle: {
     fontFamily: FONT.FAMILY,
     fontSize: 16,
-    color: COLORS.GRAY2,
+    color: COLORS.GREY2,
     fontWeight: '400',
   }
 });

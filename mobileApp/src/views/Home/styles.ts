@@ -4,6 +4,8 @@ import { COLORS, FONT } from "../../styles/styleConsts";
 export const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
+    justifyContent: 'space-between',
+    height: '100%',
     padding: 30,
     gap: 8,
   },
@@ -38,7 +40,7 @@ export const styles = StyleSheet.create({
     gap: 10,
   },
   today__date: {
-    color: COLORS.GRAY,
+    color: COLORS.GREY,
     fontFamily: FONT.FAMILY,
     fontSize: 20,
   },
@@ -57,5 +59,7 @@ export const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    textAlign: 'center',
+    textAlignVertical: 'center',
   }
 });

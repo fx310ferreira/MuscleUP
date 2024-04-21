@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
   carousel__day: {
     fontFamily: FONT.FAMILY,
     fontSize: 15,
-    color: COLORS.LIGHTGRAY,
+    color: COLORS.LIGHTGREY,
   },
   stats: {
     display: 'flex',
@@ -42,7 +42,7 @@ export const styles = StyleSheet.create({
   stats__header__desc: {
     fontFamily: FONT.FAMILY,
     fontSize: 16,
-    color: COLORS.GRAY,
+    color: COLORS.GREY,
   },
   stats__body: {
     display: 'flex',

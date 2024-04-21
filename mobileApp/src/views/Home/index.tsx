@@ -2,6 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Text, View } from 'react-native';
 import { Image } from 'react-native';
 import { useEffect } from 'react';
+import { StatusBar } from 'react-native';
 
 import { api } from '../../api/api';
 import Button from '../../components/Button';
@@ -21,10 +22,9 @@ export default function Home() {
     getUser()
   }, [])
 
-  console.log(data)
-
   return(
     <View style={styles.container}>
+      <StatusBar hidden />
       <View style={styles.header}>
         <View style={styles.leftHeader}>
           <Image
@@ -32,7 +32,7 @@ export default function Home() {
             style={{ width: 50, height: 50 }}
           />
           <View style={styles.nameAndSub}>
-            <Text style={styles.name}>Hello, {data?.data?.name}!</Text>
+            <Text style={styles.name}>Hello, {data?.data?.name ?? 'Mia Alcatifa'}!</Text>
             <Text style={styles.sub}>Pro</Text>
           </View>
         </View>
@@ -47,11 +47,13 @@ export default function Home() {
         {/* TODO */}
         <Text style={styles.today__cals}>1 883 Kcal</Text>
       </View>
-      <Button onPress={() => {}} text='Track your activity' />
+      <Button onPress={() => {}}>
+        Track your activity
+      </Button>
       <Statistics />
       <RoundButton
-        onPress={() => navigation.navigate('Train')}
-        css={{ alignSelf: 'center', backgroundColor: '#FF6C44', marginTop: 16 }}
+        onPress={() => navigation.navigate('Train' as never)}
+        variant='secundary'
       >
         <Text style={styles.start}>START</Text>
       </RoundButton>

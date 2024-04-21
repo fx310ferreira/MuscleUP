@@ -1,10 +1,11 @@
-import { TouchableOpacity, Text, Pressable } from "react-native";
+import { Pressable } from "react-native";
 import { styles } from "./styles";
+import React, { ReactNode } from "react";
 
 
-export default function RoundButton({ onPress, children }) {
+export default function RoundButton({ big, active, onPress, children }: { big: boolean, active?: boolean, onPress: () => void, children: ReactNode }) {
   return (
-    <Pressable style={styles.button} onPress={onPress}>
+    <Pressable style={[big ? styles.buttonBig : styles.button, active ? styles.active : null] } onPress={onPress}>
       {children}
     </Pressable>
   );

@@ -2,7 +2,7 @@ import { Camera, CameraType } from 'expo-camera';
 import { cameraWithTensors } from '@tensorflow/tfjs-react-native';
 import { useEffect, useRef, useState } from "react";
 import RoundButton from '../../components/RoundButton';
-import { Alert, Text, View } from 'react-native';
+import { Image, Text, View } from 'react-native';
 import FilterIcon from '../../components/icons/FilterIcon';
 import ChevronIcon from '../../components/icons/ChevronIcon';
 import { styles } from './styles';
@@ -10,14 +10,21 @@ import * as poseDetection from '@tensorflow-models/pose-detection';
 import * as tf from '@tensorflow/tfjs-core';
 import '@tensorflow/tfjs-backend-webgl';
 import poseProcessor from '../../components/utils/posePrecessor';
+import Button from '../../components/Button';
+import HeartIcon from '../../components/icons/HeartIcon';
+import FireIcon from '../../components/icons/FireIcon';
+import StarIcon from '../../components/icons/StarIcon';
 
 
 const TensorCamera = cameraWithTensors(Camera);
 
 export default function Train({ navigation }: { navigation: any }) {
   const [ready, setReady] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [errors, setErrors] = useState("");
-  const [cameraType, setCameraType] = useState(CameraType.front);
+  const [corrections, setCorrections] = useState("");
+  const [cameraType, setCameraType] = useState(Camera.Constants.Type.front);
+  const [hide, setHide] = useState(false);
 
   const model = poseDetection.SupportedModels.BlazePose;
   const detectorConfig = {
@@ -25,24 +32,28 @@ export default function Train({ navigation }: { navigation: any }) {
     enableSmoothing: true,
     modelType: 'lite'
   };
-  // make this be loaded async
 
+  let detector: poseDetection.PoseDetector | null = null;
   useEffect(() => {
-    tf.ready();
-    // Signal to the app that tensorflow.js can now be used.
-    setReady(true);
+    tf.ready().then(() => {
+      setReady(true);
+    });
   }, []);
 
 
-  const handleCameraStream = async ( images, updatePreview, gl) => {
+  const handleCameraStream = async (images, updatePreview, gl) => {
     let detector = await poseDetection.createDetector(model, detectorConfig);
+    setLoading(false)
     const loop = async () => {
       if (detector) {
         const nextImageTensor = images.next().value;
         const pose = await detector.estimatePoses(nextImageTensor);
-        const err = poseProcessor(pose, "pushUp")?.error;
-        if (errors !== err) {
-          setErrors(err ?? "");
+        const res = poseProcessor(pose, "pushUp");
+        if (errors !== res?.error) {
+          setErrors(res?.error ?? "");
+        }
+        if (corrections !== res?.corrections) {
+          setCorrections(res?.corrections ?? "");
         }
       }
       requestAnimationFrame(loop);
@@ -59,16 +70,51 @@ export default function Train({ navigation }: { navigation: any }) {
             <RoundButton onPress={() => { navigation.navigate('Home') }} >
               <ChevronIcon />
             </RoundButton>
-            <Text style={styles.text}>{errors}</Text>
-            <RoundButton onPress={() => {setCameraType(CameraType.front == cameraType ? CameraType.back : CameraType.front)}}>
+            <Text style={styles.text}>Workout</Text>
+            <RoundButton onPress={() => { setCameraType(Camera.Constants.Type.front == cameraType ? CameraType.back : Camera.Constants.Type.front) }}>
               <FilterIcon />
             </RoundButton>
           </View>
+          {!hide &&
+            <View style={styles.loading}>
+              <View style={styles.card}>
+                <Text style={styles.difficulty}>Difficulty</Text>
+                <View style={styles.trainSelector}>
+                  <View style={styles.buttonContainer}>
+                    <RoundButton big active onPress={() => { }}>
+                      <HeartIcon/>
+                    </RoundButton>
+                    <Text>Beginner</Text>
+                  </View>
+                  <View style={styles.buttonContainer}>
+                    <RoundButton big onPress={() => { }}>
+                      <FireIcon/>
+                    </RoundButton>
+                    <Text>Beginner</Text>
+                  </View>
+                  <View style={styles.buttonContainer}>
+                    <RoundButton big onPress={() => { }}>
+                      <StarIcon/>
+                    </RoundButton>
+                    <Text>Beginner</Text>
+                  </View>
+                </View>
+                <Button loading={loading} onPress={() => { setHide(true) }}>
+                  <Text style={styles.buttonContent}>Start</Text>
+                </Button>
+              </View>
+            </View>
+          }
+          { hide && errors.length > 1 &&
+            <View style={styles.loading}>
+              <View style={styles.errorCard}>
+                <Text style={styles.errorCardTitle}>{errors}</Text>
+              </View>
+            </View>
+          }
           <TensorCamera
-            // Standard Camera props
             style={styles.camera}
             type={cameraType}
-            // Tensor related props     cameraTextureHeight={textureDims.height}
             cameraTextureHeight={200}
             cameraTextureWidth={152}
             resizeHeight={200}

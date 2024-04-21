@@ -14,6 +14,7 @@ import useRequest from '../../hooks/useRequest';
 import { styles } from './styles';
 
 export default function Home() {
+  const navigation = useNavigation();
   const { data: data, doRequest: getUser } = useRequest(api.getUsers);
 
   useEffect(() => {
@@ -48,6 +49,12 @@ export default function Home() {
       </View>
       <Button onPress={() => {}} text='Track your activity' />
       <Statistics />
+      <RoundButton
+        onPress={() => navigation.navigate('Train')}
+        css={{ alignSelf: 'center', backgroundColor: '#FF6C44', marginTop: 16 }}
+      >
+        <Text style={styles.start}>START</Text>
+      </RoundButton>
     </View>
   )
 };

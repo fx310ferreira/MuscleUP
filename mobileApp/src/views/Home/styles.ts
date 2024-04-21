@@ -47,5 +47,15 @@ export const styles = StyleSheet.create({
     fontFamily: FONT.FAMILY,
     fontSize: 32,
     fontWeight: '700',
+  },
+  start: {
+    color: 'white',
+    fontFamily: FONT.FAMILY,
+    fontSize: 14,
+    fontWeight: '500',
+    height: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   }
 });

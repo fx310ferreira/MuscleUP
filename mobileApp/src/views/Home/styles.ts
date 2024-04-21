@@ -5,7 +5,7 @@ export const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
     padding: 30,
-    gap: 20,
+    gap: 8,
   },
   header: {
     flexDirection: 'row',
@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
   leftHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 10
+    gap: 5
   },
   nameAndSub: {
     flexDirection: 'column',
@@ -24,13 +24,13 @@ export const styles = StyleSheet.create({
   name: {
     color: COLORS.PRIMARY,
     fontFamily: FONT.FAMILY,
-    fontSize: '1.15rem',
+    fontSize: 18.5,
     fontWeight: '600',
   },
   sub: {
     color: COLORS.PRIMARY,
     fontFamily: FONT.FAMILY,
-    fontSize: '1rem',
+    fontSize: 16,
     fontWeight: '400',
   },
   today: {
@@ -40,12 +40,12 @@ export const styles = StyleSheet.create({
   today__date: {
     color: COLORS.GRAY,
     fontFamily: FONT.FAMILY,
-    fontSize: '1.25rem',
+    fontSize: 20,
   },
   today__cals: {
     color: COLORS.PRIMARY,
     fontFamily: FONT.FAMILY,
-    fontSize: '2rem',
+    fontSize: 32,
     fontWeight: '700',
   }
 });

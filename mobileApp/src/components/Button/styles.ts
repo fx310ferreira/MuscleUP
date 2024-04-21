@@ -7,17 +7,23 @@ export const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: '1px',
+    borderWidth: 1,
     borderColor: COLORS.PRIMARY,
-    boxSize: 'border-box',
-    width: 'fit-content',
-    borderRadius: '2rem',
-    paddingVertical: '0.5rem',
-    paddingHorizontal: '1rem',
+    borderRadius: 32,
+    paddingVertical: 8,
+    paddingHorizontal: 8,
   },
   text: {
     fontFamily: FONT.FAMILY,
-    fontSize: FONT.MEDIUM_SIZE,
+    fontSize: 15,
     color: 'white',
+  },
+  secundary: {
+    backgroundColor: COLORS.PRIMARY_FADED,
+    borderColor: COLORS.PRIMARY,
+    borderWidth: 1,
+  },
+  secundayText: {
+    color: COLORS.PRIMARY,
   }
 });

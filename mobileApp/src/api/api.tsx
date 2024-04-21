@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const getAxiosInstance = (type: string) => {
   const axiosInstance = axios.create({
-    baseURL: 'https://true-olives-shake.loca.lt',
+    baseURL: 'https://purple-vans-agree.loca.lt',
     timeout: 15000
   })
 

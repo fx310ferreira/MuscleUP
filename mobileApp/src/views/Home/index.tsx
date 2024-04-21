@@ -1,24 +1,19 @@
 import { useNavigation } from '@react-navigation/native';
-import RoundButton from '../../components/RoundButton';
 import { Text, View } from 'react-native';
-import FilterIcon from '../../components/icons/FilterIcon';
-import ChevronIcon from '../../components/icons/ChevronIcon';
-import { useEffect, useState } from 'react';
-import { api } from '../../api/api';
-import useRequest from '../../hooks/useRequest';
 import { Image } from 'react-native';
+import { useEffect } from 'react';
 
-import mia from 'mia.png';
+import { api } from '../../api/api';
+import Button from '../../components/Button';
+import FilterIcon from '../../components/icons/FilterIcon';
+import mia from './mia.png'; // sorry about that
+import RoundButton from '../../components/RoundButton';
+import Statistics from '../../components/Statistics';
+import useRequest from '../../hooks/useRequest';
 
 import { styles } from './styles';
-import Button from '../../components/Button';
-
 
 export default function Home() {
-  const navigation = useNavigation();
-
-  const [theme, setTheme] = useState('light' as 'light' | 'dark');
-
   const { data: data, doRequest: getUser } = useRequest(api.getUsers);
 
   useEffect(() => {
@@ -41,7 +36,7 @@ export default function Home() {
           </View>
         </View>
         <RoundButton
-          onPress={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+          onPress={() => {}}
         >
           <FilterIcon />
         </RoundButton>
@@ -52,6 +47,7 @@ export default function Home() {
         <Text style={styles.today__cals}>1 883 Kcal</Text>
       </View>
       <Button onPress={() => {}} text='Track your activity' />
+      <Statistics />
     </View>
   )
 };
